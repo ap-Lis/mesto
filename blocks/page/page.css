@@ -1,7 +1,7 @@
 .page {
     max-width: 100vw;
     margin: 0 auto;
-    background-color: #2A2C2F;
+    background-color: #000000;
     font-family: "Inter", "Arial", "Helvetica", sans-serif;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
@@ -9,6 +9,6 @@
     -ms-text-size-adjust: 100%;
     -moz-text-size-adjust: 100%;
     text-rendering: optimizeLegibility;
-    /* при min-width появляется горизонтальный скрол на ширине менее 337px  */
     min-width: 320px;
+    min-height: 100vh;
 }
