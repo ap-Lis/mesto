@@ -3,12 +3,15 @@ const popupWindowElement = document.querySelector('.popup__window');
 const popupCloseButtonElement = popupWindowElement.querySelector('.popup__close-button');
 const popupOpenButtonElement = document.querySelector('.profile__edit-button');
 
-let nameInput = formElement.querySelector('.popup__name-input');
-let jobInput = formElement.querySelector('.popup__job-input');
+let nameInput = formElement.querySelector('.popup__input_value-name');
+let jobInput = formElement.querySelector('.popup__input_value-job');
+
+let nameTextContent = document.querySelector('.profile__name');
+let jobTextContent = document.querySelector('.profile__job');
 
 function refreshPopupValues () {
-    nameInput.value = document.querySelector('.profile__name').textContent;
-    jobInput.value = document.querySelector('.profile__job').textContent;
+    nameInput.value = nameTextContent.textContent;
+    jobInput.value = jobTextContent.textContent;
 }
 
 function popupTogle () {
@@ -18,8 +21,8 @@ function popupTogle () {
 
 function handleFormSubmit (evt) {
     evt.preventDefault();
-    document.querySelector('.profile__name').textContent = nameInput.value;
-    document.querySelector('.profile__job').textContent = jobInput.value;
+    nameTextContent.textContent = nameInput.value;
+    jobTextContent.textContent = jobInput.value;
     popupTogle ();
 }
 
