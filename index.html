@@ -16,61 +16,73 @@
         <img class="profile__avatar" src="./images/avatar.png" alt="аватар">
         <div class="profile__profile-info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <input class="profile__edit-button" type="image" src="./images/edit.svg" alt="редактирование">
-          <p class="profile__about">Исследователь океана</p>
+          <input class="profile__edit-button" type="image" src="./images/icons/edit.svg" alt="редактирование">
+          <p class="profile__job">Исследователь океана</p>
         </div>
-        <input class="profile__add-button" type="image" src="./images/add.svg" alt="добавить">
+        <input class="profile__add-button" type="image" src="./images/icons/add.svg" alt="добавить">
       </section>
       <section class="elements" aria-label="галерея">
         <figure class="element">
           <img class="element__image" src="./images/karachaevsk.png" alt="карачаевск">
           <div class="element__info">
             <figcaption class="element__label">Карачаевск</figcaption>
-            <input class="element__like-button" type="image" src="./images/like.svg" alt="мне нарвится">
+            <input class="element__like-button" type="image" src="./images/icons/like.svg" alt="мне нарвится">
           </div>
         </figure>
         <figure class="element">
           <img class="element__image" src="./images/elbrus.png" alt="эльбрус">
           <div class="element__info">
             <figcaption class="element__label">Гора Эльбрус</figcaption>
-            <input class="element__like-button" type="image" src="./images/like.svg" alt="мне нарвится">
+            <input class="element__like-button" type="image" src="./images/icons/like.svg" alt="мне нарвится">
           </div>
         </figure>
         <figure class="element">
           <img class="element__image" src="./images/dombay.png" alt="домбай">
           <div class="element__info">
             <figcaption class="element__label">Домбай</figcaption>
-            <input class="element__like-button" type="image" src="./images/like.svg" alt="мне нарвится">
+            <input class="element__like-button" type="image" src="./images/icons/like.svg" alt="мне нарвится">
           </div>
         </figure>
         <figure class="element">
           <img class="element__image" src="./images/elbrus.png" alt="эльбрус">
           <div class="element__info">
             <figcaption class="element__label">Гора Эльбрус</figcaption>
-            <input class="element__like-button" type="image" src="./images/like.svg" alt="мне нарвится">
+            <input class="element__like-button" type="image" src="./images/icons/like.svg" alt="мне нарвится">
           </div>
         </figure>
         <figure class="element">
           <img class="element__image" src="./images/dombay.png" alt="домбай">
           <div class="element__info">
             <figcaption class="element__label">Домбай</figcaption>
-            <input class="element__like-button" type="image" src="./images/like.svg" alt="мне нарвится">
+            <input class="element__like-button" type="image" src="./images/icons/like.svg" alt="мне нарвится">
           </div>
         </figure>
         <figure class="element">
           <img class="element__image" src="./images/karachaevsk.png" alt="карачаево-черкессия">
           <div class="element__info">
             <figcaption class="element__label">Карачаево-Черкессия</figcaption>
-            <input class="element__like-button" type="image" src="./images/like.svg" alt="мне нарвится">
+            <input class="element__like-button" type="image" src="./images/icons/like.svg" alt="мне нарвится">
           </div>
         </figure>
       </section>
     </main>
+    <section class="popup">
+      <div class="popup__window">
+        <input class="popup__close-button" type="image" src="./images/icons/close.svg" alt="закрыть">
+        <form class="popup__content">
+          <h2 class="popup__title">Редактировать профиль</h2>
+          <input class="popup__name-input" type="text">
+          <input class="popup__job-input" type="text">
+          <input class="popup__submit-button" type="submit" value="Сохранить">
+        </form>
+      </div>
+    </section>
     <footer class="footer">
       <p class="footer__copyright">
         &copy; 2020 Mesto Russia
       </p>
     </footer>
   </div>
+  <script src="./scripts/index.js"></script>
 </body>
 </html>
