@@ -1,0 +1,12 @@
+.element__like-button{
+    max-width: 22px;
+    width: 100%;
+    max-height: 19px;
+    height: 100%;
+    align-self: end;
+    transition: opacity 1s;
+}
+
+.element__like-button:hover{
+    opacity: 0.5;
+}
