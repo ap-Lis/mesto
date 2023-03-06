@@ -2,14 +2,11 @@
     align-self: end;
     max-width: 32px;
     width: 100%;
-    max-height: 32px;
+    min-height: 32px;
     height: 100%;
     transition: opacity 1s;
     border: 0;
-    background: rgba(0, 0, 0, 0);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background: center no-repeat url(../../../images/icons/close.svg);
     cursor: pointer;
     padding: 0;
 }
