@@ -41,8 +41,7 @@ function addElement(elementLink, elementName) {
       evt.target.closest('.element').remove();
     });
 
-    elementContent.querySelector('.element__image').addEventListener('click', function (evt) {
-      popupTypePicture.classList.add('popup_is-image');
+    elementImage.addEventListener('click', function () {
       openPopup(popupTypePicture);
       popupImage.src = elementLink;
       popupImage.alt = elementName;
@@ -61,8 +60,8 @@ function renderElement(elementLink, elementName, direction = 0) {
   }
 }
 
-let nameTextContent = document.querySelector('.profile__name');
-let jobTextContent = document.querySelector('.profile__job');
+const nameTextContent = document.querySelector('.profile__name');
+const jobTextContent = document.querySelector('.profile__job');
 
 function refreshPopupValues () {
     nameInput.value = nameTextContent.textContent;
