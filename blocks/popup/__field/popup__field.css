@@ -8,6 +8,6 @@
 
 @media screen and (max-width: 650px) {
     .popup__field{
-        min-height: 75px
+        min-height: 75px;
     }
 }
