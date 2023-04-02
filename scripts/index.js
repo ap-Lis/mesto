@@ -16,16 +16,13 @@ const popupAddOpenButtonElement = document.querySelector('.profile__add-button')
 const elementTemplate = document.querySelector('#element-template').content;
 const elementsContainer = document.querySelector('.elements');
 
-//openedPopup
-let openedPopup;
-
 initialCards.forEach(initialCard => {renderElement(initialCard.link, initialCard.name, 0)});
 
 //popup-picture
 const popupTypePicture = document.querySelector('.popup_type_picture');
 const popupTypePictureOpenButtonElement = document.querySelector('.element__image');
-const popupImage = popupTypePicture.querySelector('.popup__image');
-const popupImageTitle = popupTypePicture.querySelector('.popup__image-title');
+const popupTypePictureImage = popupTypePicture.querySelector('.popup__image');
+const popupTypePictureImageTitle = popupTypePicture.querySelector('.popup__image-title');
 
 function addElement(elementLink, elementName) {
   const elementContent = elementTemplate.querySelector('.element').cloneNode(true);
@@ -46,9 +43,9 @@ function addElement(elementLink, elementName) {
 
   elementImage.addEventListener('click', function () {
     openPopup(popupTypePicture);
-    popupImage.src = elementLink;
-    popupImage.alt = elementName;
-    popupImageTitle.textContent = elementName;
+    popupTypePictureImage.src = elementLink;
+    popupTypePictureImage.alt = elementName;
+    popupTypePictureImageTitle.textContent = elementName;
   });
 
   return elementContent;
@@ -71,13 +68,21 @@ function refreshPopupValues () {
   jobInput.value = jobTextContent.textContent;
 }
 
+function closePopupOnEsc(evt) {
+  const openedPopup = document.querySelector('.popup_is-opened')
+  if (evt.key === 'Escape') {
+    closePopup(openedPopup);
+  }
+}
+
 function openPopup (popup) {
   popup.classList.add('popup_is-opened');
-  openedPopup = popup;
+  document.addEventListener('keydown', closePopupOnEsc);
 }
 
 function closePopup (popup) {
   popup.classList.remove('popup_is-opened');
+  document.removeEventListener('keydown', closePopupOnEsc);
 }
 
 function handleEditFormSubmit (evt) {
@@ -97,20 +102,24 @@ function handleAddFormSubmit (evt) {
 function resetAddForm() {
   const newPlaceForm = document.forms.add;
   const submitButton = newPlaceForm.querySelector(formVariables.submitButtonSelector);
-  submitButton.classList.add(formVariables.inactiveButtonClass);
-  submitButton.setAttribute("disabled", false)
+  disableButton(submitButton, formVariables.inactiveButtonClass);
   newPlaceForm.reset();
 }
 
 function resetEditFrom() {
   const editingForm = document.forms.edit;
   const submitButton = editingForm.querySelector(formVariables.submitButtonSelector);
-  submitButton.classList.remove(formVariables.inactiveButtonClass);
-  submitButton.removeAttribute("disabled");
-  const inputElements = Array.from(editingForm.querySelectorAll(formVariables.inputSelector));
-  inputElements.forEach(element => element.classList.remove(formVariables.inputErrorClass));
-  const errorElements = Array.from(editingForm.querySelectorAll('.popup__error'));
-  errorElements.forEach(element => element.classList.remove(formVariables.errorClass));
+  const inputFields = Array.from(editingForm.querySelectorAll('.popup__input'));
+  inputFields.forEach(element => {
+    hideInputError(editingForm, element, formVariables.inputErrorClass, formVariables.errorClass)
+  });
+  enableButton(submitButton, formVariables.inactiveButtonClass);
+}
+
+function closePopupOnOverlay(evt, element) {
+  if(evt.target === evt.currentTarget) {
+    closePopup(element);
+  }
 }
 
 popupEditFormElement.addEventListener('submit', handleEditFormSubmit);
@@ -131,19 +140,6 @@ document.querySelectorAll('.popup__close-button').forEach(button => {
   const buttonsPopup = button.closest('.popup');
   button.addEventListener('click', () => closePopup(buttonsPopup));
 });
-
-document.addEventListener('keydown', (evt) => {if (evt.key === 'Escape') {
-    if(typeof openedPopup != "undefined") {
-      closePopup(openedPopup);
-    }
-  }
-});
-
-function closePopupOnOverlay(evt, element) {
-  if(evt.target === evt.currentTarget) {
-    closePopup(element);
-  }
-}
 
 document.querySelectorAll('.popup').forEach(element => {
   element.addEventListener('click', (evt) => closePopupOnOverlay(evt, element));
