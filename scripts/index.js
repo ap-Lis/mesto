@@ -1,67 +1,35 @@
-// popup-edit
-const popupTypeEdit = document.querySelector('.popup_type_edit');
-const popupEditFormElement = popupTypeEdit.querySelector('.popup__content');
-const nameInput = popupEditFormElement.querySelector('.popup__input_value_name');
-const jobInput = popupEditFormElement.querySelector('.popup__input_value_job');
-const popupEditOpenButtonElement = document.querySelector('.profile__edit-button');
+import {
+  initialCards,
+  formVariables,
+  popupEditFormElement,
+  popupAddFormElement,
+  popupEditOpenButtonElement,
+  popupAddOpenButtonElement,
+  popupTypeAdd,
+  popupTypeEdit,
+  nameInput,
+  nameTextContent,
+  jobInput,
+  jobTextContent,
+  placeTitleInput,
+  placeUrlInput
+} from "./constants.js";
+import { Card } from "./Card.js";
+import { FormValidator } from "./FormValidator.js";
 
-//popup-add
-const popupTypeAdd = document.querySelector('.popup_type_add');
-const popupAddFormElement = popupTypeAdd.querySelector('.popup__content');
-const placeTitleInput = popupAddFormElement.querySelector('.popup__input_value_place-title');
-const placeUrlInput = popupAddFormElement.querySelector('.popup__input_value_place-url');
-const popupAddOpenButtonElement = document.querySelector('.profile__add-button');
+const editFormValidation = new FormValidator(formVariables, document.forms.edit);
+editFormValidation.enableValidation();
+const addFormValidation = new FormValidator(formVariables, document.forms.add);
+addFormValidation.enableValidation();
 
-//template
-const elementTemplate = document.querySelector('#element-template').content;
-const elementsContainer = document.querySelector('.elements');
+initialCards.forEach((initialCard) => {
+  renderCard(initialCard.name, initialCard.link, 0, openPopup);
+});
 
-initialCards.forEach(initialCard => {renderElement(initialCard.link, initialCard.name, 0)});
-
-//popup-picture
-const popupTypePicture = document.querySelector('.popup_type_picture');
-const popupTypePictureOpenButtonElement = document.querySelector('.element__image');
-const popupTypePictureImage = popupTypePicture.querySelector('.popup__image');
-const popupTypePictureImageTitle = popupTypePicture.querySelector('.popup__image-title');
-
-function addElement(elementLink, elementName) {
-  const elementContent = elementTemplate.querySelector('.element').cloneNode(true);
-
-  elementContent.querySelector('.element__label').textContent = elementName;
-
-  const elementImage = elementContent.querySelector('.element__image');
-  elementImage.src = elementLink;
-  elementImage.alt = elementName;
-
-  elementContent.querySelector('.element__like-button').addEventListener('click', function (evt) {
-    evt.target.classList.toggle('element__like-button_enabled');
-  });
-
-  elementContent.querySelector('.element__delete-button').addEventListener('click', function (evt) {
-    evt.target.closest('.element').remove();
-  });
-
-  elementImage.addEventListener('click', function () {
-    openPopup(popupTypePicture);
-    popupTypePictureImage.src = elementLink;
-    popupTypePictureImage.alt = elementName;
-    popupTypePictureImageTitle.textContent = elementName;
-  });
-
-  return elementContent;
+function renderCard(name, link, direction = 0, openPopup) {
+  const card = new Card(name, link, '#element-template', openPopup);
+  direction === 0 ? document.querySelector('.elements').append(card.generateCard()) : document.querySelector('.elements').prepend(card.generateCard());
 }
-
-function renderElement(elementLink, elementName, direction = 0) {
-  if(direction === 0) {
-    elementsContainer.append(addElement(elementLink, elementName));
-  } else
-  {
-    elementsContainer.prepend(addElement(elementLink, elementName));
-  }
-}
-
-const nameTextContent = document.querySelector('.profile__name');
-const jobTextContent = document.querySelector('.profile__job');
 
 function refreshPopupValues () {
   nameInput.value = nameTextContent.textContent;
@@ -94,26 +62,9 @@ function handleEditFormSubmit (evt) {
 
 function handleAddFormSubmit (evt) {
   evt.preventDefault();
-  renderElement(placeUrlInput.value, placeTitleInput.value, 1)
+  renderCard(placeTitleInput.value, placeUrlInput.value, '#element-template', openPopup);
   closePopup(popupTypeAdd);
-  resetAddForm();
-}
-
-function resetAddForm() {
-  const newPlaceForm = document.forms.add;
-  const submitButton = newPlaceForm.querySelector(formVariables.submitButtonSelector);
-  disableButton(submitButton, formVariables.inactiveButtonClass);
-  newPlaceForm.reset();
-}
-
-function resetEditFrom() {
-  const editingForm = document.forms.edit;
-  const submitButton = editingForm.querySelector(formVariables.submitButtonSelector);
-  const inputFields = Array.from(editingForm.querySelectorAll('.popup__input'));
-  inputFields.forEach(element => {
-    hideInputError(editingForm, element, formVariables.inputErrorClass, formVariables.errorClass)
-  });
-  enableButton(submitButton, formVariables.inactiveButtonClass);
+  addFormValidation.resetAddForm();
 }
 
 function closePopupOnOverlay(evt, element) {
@@ -123,13 +74,12 @@ function closePopupOnOverlay(evt, element) {
 }
 
 popupEditFormElement.addEventListener('submit', handleEditFormSubmit);
-
 popupAddFormElement.addEventListener('submit', handleAddFormSubmit);
 
 popupEditOpenButtonElement.addEventListener('click', function () {
+  editFormValidation.resetEditForm();
   openPopup(popupTypeEdit);
   refreshPopupValues();
-  resetEditFrom();
 });
 
 popupAddOpenButtonElement.addEventListener('click', function () {
