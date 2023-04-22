@@ -10,7 +10,7 @@ export class Card {
     }
     
     _getTemplate() {
-      const elementContent = document.querySelector(this._templateSelector).content.querySelector('.element').cloneNode(true);
+      const elementContent = this._templateSelector.querySelector('.element').cloneNode(true);
       return elementContent; 
     }
   
@@ -21,8 +21,8 @@ export class Card {
       this._elementImage = this._element.querySelector('.element__image');
       this._setEventListeners();
       this._element.querySelector('.element__label').textContent = this._name;
-      this._element.querySelector('.element__image').src = this._link;
-      this._element.querySelector('.element__image').alt = this._name;
+      this._elementImage.src = this._link;
+      this._elementImage.alt = this._name;
       return this._element; 
     }
   
