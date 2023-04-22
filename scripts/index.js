@@ -12,7 +12,8 @@ import {
   jobInput,
   jobTextContent,
   placeTitleInput,
-  placeUrlInput
+  placeUrlInput,
+  templateSelector
 } from "./constants.js";
 import { Card } from "./Card.js";
 import { FormValidator } from "./FormValidator.js";
@@ -23,12 +24,21 @@ const addFormValidation = new FormValidator(formVariables, document.forms.add);
 addFormValidation.enableValidation();
 
 initialCards.forEach((initialCard) => {
-  renderCard(initialCard.name, initialCard.link, 0, openPopup);
+  const cardElement = createCard(initialCard.name, initialCard.link);
+  renderLast(cardElement);
 });
 
-function renderCard(name, link, direction = 0, openPopup) {
-  const card = new Card(name, link, '#element-template', openPopup);
-  direction === 0 ? document.querySelector('.elements').append(card.generateCard()) : document.querySelector('.elements').prepend(card.generateCard());
+function createCard(name, link) {
+  const card = new Card(name, link, templateSelector, openPopup);
+  return card.generateCard();
+}
+
+function renderFirst(cardElement) {
+  document.querySelector('.elements').prepend(cardElement);
+}
+
+function renderLast(cardElement) {
+  document.querySelector('.elements').append(cardElement);
 }
 
 function refreshPopupValues () {
@@ -62,9 +72,11 @@ function handleEditFormSubmit (evt) {
 
 function handleAddFormSubmit (evt) {
   evt.preventDefault();
-  renderCard(placeTitleInput.value, placeUrlInput.value, '#element-template', openPopup);
+  const cardElement = createCard(placeTitleInput.value, placeUrlInput.value);
+  renderFirst(cardElement);
   closePopup(popupTypeAdd);
-  addFormValidation.resetAddForm();
+  document.forms.add.reset();
+  addFormValidation.resetForm();
 }
 
 function closePopupOnOverlay(evt, element) {
@@ -77,9 +89,10 @@ popupEditFormElement.addEventListener('submit', handleEditFormSubmit);
 popupAddFormElement.addEventListener('submit', handleAddFormSubmit);
 
 popupEditOpenButtonElement.addEventListener('click', function () {
-  editFormValidation.resetEditForm();
+  
   openPopup(popupTypeEdit);
   refreshPopupValues();
+  editFormValidation.resetForm();
 });
 
 popupAddOpenButtonElement.addEventListener('click', function () {
