@@ -13,7 +13,8 @@ import {
   jobTextContent,
   placeTitleInput,
   placeUrlInput,
-  templateSelector
+  templateSelector,
+  elementsGroup
 } from "./constants.js";
 import { Card } from "./Card.js";
 import { FormValidator } from "./FormValidator.js";
@@ -34,11 +35,11 @@ function createCard(name, link) {
 }
 
 function renderFirst(cardElement) {
-  document.querySelector('.elements').prepend(cardElement);
+  elementsGroup.prepend(cardElement);
 }
 
 function renderLast(cardElement) {
-  document.querySelector('.elements').append(cardElement);
+  elementsGroup.append(cardElement);
 }
 
 function refreshPopupValues () {
