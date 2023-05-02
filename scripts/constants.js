@@ -25,6 +25,7 @@ const placeUrlInput = popupAddFormElement.querySelector('.popup__input_value_pla
 const popupAddOpenButtonElement = document.querySelector('.profile__add-button');
 
 //template
+const elementsGroup = document.querySelector('.elements');
 const templateSelector = document.querySelector('#element-template').content;
 
 //карточки для заполнения
@@ -70,5 +71,6 @@ const initialCards = [
     nameTextContent,
     jobTextContent,
     initialCards,
-    templateSelector
+    templateSelector,
+    elementsGroup
   };
