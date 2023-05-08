@@ -14,21 +14,11 @@ const popupEditFormElement = popupTypeEdit.querySelector('.popup__content');
 const nameInput = popupEditFormElement.querySelector('.popup__input_value_name');
 const jobInput = popupEditFormElement.querySelector('.popup__input_value_job');
 const popupEditOpenButtonElement = document.querySelector('.profile__edit-button');
-const nameTextContent = document.querySelector('.profile__name');
-const jobTextContent = document.querySelector('.profile__job');
 
 //popup-add
-const popupTypeAdd = document.querySelector('.popup_type_add');
-const popupAddFormElement = popupTypeAdd.querySelector('.popup__content');
-const placeTitleInput = popupAddFormElement.querySelector('.popup__input_value_place-title');
-const placeUrlInput = popupAddFormElement.querySelector('.popup__input_value_place-url');
 const popupAddOpenButtonElement = document.querySelector('.profile__add-button');
 
-//popup-picture
-const popupTypePicture = document.querySelector('.popup_type_picture');
-
 //template
-const elementsGroup = document.querySelector('.elements');
 const templateSelector = document.querySelector('#element-template').content;
 
 //карточки для заполнения
@@ -61,16 +51,10 @@ const initialCards = [
 
   export {
     formVariables,
-    popupTypeEdit,
     nameInput,
     jobInput,
     popupEditOpenButtonElement,
-    popupTypeAdd,
     popupAddOpenButtonElement,
-    nameTextContent,
-    jobTextContent,
     initialCards,
     templateSelector,
-    elementsGroup,
-    popupTypePicture
   };
