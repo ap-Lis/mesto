@@ -24,6 +24,9 @@ const placeTitleInput = popupAddFormElement.querySelector('.popup__input_value_p
 const placeUrlInput = popupAddFormElement.querySelector('.popup__input_value_place-url');
 const popupAddOpenButtonElement = document.querySelector('.profile__add-button');
 
+//popup-picture
+const popupTypePicture = document.querySelector('.popup_type_picture');
+
 //template
 const elementsGroup = document.querySelector('.elements');
 const templateSelector = document.querySelector('#element-template').content;
@@ -59,18 +62,15 @@ const initialCards = [
   export {
     formVariables,
     popupTypeEdit,
-    popupEditFormElement,
     nameInput,
     jobInput,
     popupEditOpenButtonElement,
     popupTypeAdd,
-    popupAddFormElement,
-    placeTitleInput,
-    placeUrlInput,
     popupAddOpenButtonElement,
     nameTextContent,
     jobTextContent,
     initialCards,
     templateSelector,
-    elementsGroup
+    elementsGroup,
+    popupTypePicture
   };
