@@ -1,7 +1,7 @@
 export class UserInfo {
-    constructor (profileInfo, profileName) {
-        this._profileInfo = profileInfo;
-        this._profileName = profileName;
+    constructor (profileInfoSelector, profileNameSelector) {
+        this._profileInfo = document.querySelector(profileInfoSelector);
+        this._profileName = document.querySelector(profileNameSelector);
     }
 
     getUserInfo() {

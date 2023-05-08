@@ -4,4 +4,6 @@
     object-fit: cover;
     display: block;
     cursor: pointer;
+    background-color: #000000;
+    color: #FFFFFF;
 }
