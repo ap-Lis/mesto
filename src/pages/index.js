@@ -37,11 +37,12 @@ const popupAdd = new PopupWithForm('.popup_type_add', (inputData) => {
 });
 popupAdd.setEventListeners();
 
+const popupImg = new PopupWithImage('.popup_type_picture');
+popupImg.setEventListeners();
+
 function renderer(item) {
   const card = new Card({name: item.name, link: item.link, handleCardClick: (name, link) => {
-    const popupImg = new PopupWithImage('.popup_type_picture');
     popupImg.open(name, link);
-    popupImg.setEventListeners();
   }}, templateSelector);
   const cardElement = card.generateCard();
   section.addItem(cardElement);
