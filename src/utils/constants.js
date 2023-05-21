@@ -18,36 +18,12 @@ const popupEditOpenButtonElement = document.querySelector('.profile__edit-button
 //popup-add
 const popupAddOpenButtonElement = document.querySelector('.profile__add-button');
 
+//popup-avatar
+const popupAvatarOpenButtonElement = document.querySelector('.profile__avatar');
+
+
 //template
 const templateSelector = document.querySelector('#element-template').content;
-
-//карточки для заполнения
-const initialCards = [
-    {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-  ];
 
   export {
     formVariables,
@@ -55,6 +31,6 @@ const initialCards = [
     jobInput,
     popupEditOpenButtonElement,
     popupAddOpenButtonElement,
-    initialCards,
     templateSelector,
+    popupAvatarOpenButtonElement
   };
