@@ -41,7 +41,7 @@ const popupEdit = new PopupWithForm('.popup_type_edit', (inputData) => {
         popupEdit.close();
       })
     .catch((err) => console.log(err))
-    .finally(popupEdit.renderLoading(false));
+    .finally(() => {popupEdit.renderLoading(false)});
 });
 popupEdit.setEventListeners();
 
@@ -53,7 +53,7 @@ const popupAdd = new PopupWithForm('.popup_type_add', (inputData) => {
     popupAdd.close()
   })
   .catch((err) => console.log(err))
-  .finally(popupAdd.renderLoading(false));
+  .finally(() => {popupAdd.renderLoading(false)});
 });
 popupAdd.setEventListeners();
 
@@ -63,10 +63,10 @@ popupImg.setEventListeners();
 const popupAvatar = new PopupWithForm('.popup_type_avatar', (inputData) => {
   popupAvatar.renderLoading(true);
   api.updateAvatar(inputData.avatar_url)
-  .then((res) => {userInfo.setUserAvatar(res.avatar)})
+  .then((res) => {userInfo.setUserAvatar(res.avatar);
+    popupAvatar.close();})
   .catch((err) => console.log(err))
-  .finally(() => {popupAvatar.renderLoading(false);
-    popupAvatar.close();});
+  .finally(() => {popupAvatar.renderLoading(false)});
 });
 popupAvatar.setEventListeners();
 
@@ -83,8 +83,8 @@ function renderer(item) {
       popupSubmit.open();
       popupSubmit.assignSubmit(() => {
         api.deleteCard(cardId)
-        .then(card.deleteCard())
-        .then(popupSubmit.close())
+        .then(() => {card.deleteCard();
+          popupSubmit.close()})
         .catch((err) => console.log(err));
       })
     }
@@ -138,4 +138,3 @@ api.getInitialCards()])
   section.renderAllElements(cards.reverse());
 })
 .catch((err)=>{console.log(err);});
-//спасибо

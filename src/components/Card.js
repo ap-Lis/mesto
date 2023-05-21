@@ -26,6 +26,7 @@ export class Card {
       this._elementLikeContainer = this._element.querySelector('.element__like-container')
       this._elementLikeCounter = this._element.querySelector('.element__like-counter')
       if(this._ownerId === this._userId) {
+        console.log(this._ownerId, this._userId);
         this._elementDeleteButton = this._element.querySelector('.element__delete-button');
         this._enableDeleteButton()
       }
