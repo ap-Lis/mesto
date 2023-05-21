@@ -31,12 +31,15 @@ addFormValidation.enableValidation();
 const avatarFormValidation = new FormValidator(formVariables, document.forms.avatar);
 avatarFormValidation.enableValidation();
 
-const section = new Section({items: [], renderer: renderer}, '.elements');
+const section = new Section({renderer: renderer}, '.elements');
 
 const popupEdit = new PopupWithForm('.popup_type_edit', (inputData) => {
   popupEdit.renderLoading(true);
   api.setUserInfo({name: inputData.name, info: inputData.job})
-    .then(userInfo.setUserInfo({name: inputData.name, info: inputData.job}))
+    .then((res) => {
+        userInfo.setUserInfo({name: res.name, info: res.about});
+        popupEdit.close();
+      })
     .catch((err) => console.log(err))
     .finally(popupEdit.renderLoading(false));
 });
@@ -46,10 +49,11 @@ const popupAdd = new PopupWithForm('.popup_type_add', (inputData) => {
   popupAdd.renderLoading(true);
   api.addCard({name: inputData.place_title, link: inputData.place_url})
   .then((res) => {
-    renderer({name: res.name, link: res.link, likes: res.likes, _id: res._id, owner: res.owner, userId: userInfo.getUserId()})
+    renderer({name: res.name, link: res.link, likes: res.likes, _id: res._id, owner: res.owner, userId: res.owner});
+    popupAdd.close()
   })
   .catch((err) => console.log(err))
-  .finally(popupAdd.renderLoading(false));;
+  .finally(popupAdd.renderLoading(false));
 });
 popupAdd.setEventListeners();
 
@@ -61,7 +65,8 @@ const popupAvatar = new PopupWithForm('.popup_type_avatar', (inputData) => {
   api.updateAvatar(inputData.avatar_url)
   .then((res) => {userInfo.setUserAvatar(res.avatar)})
   .catch((err) => console.log(err))
-  .finally(popupAvatar.renderLoading(false));;;
+  .finally(() => {popupAvatar.renderLoading(false);
+    popupAvatar.close();});
 });
 popupAvatar.setEventListeners();
 
@@ -115,6 +120,7 @@ popupEditOpenButtonElement.addEventListener('click', function () {
 
 popupAvatarOpenButtonElement.addEventListener('click', function () {
   popupAvatar.open();
+  avatarFormValidation.resetForm();
 })
 
 popupAddOpenButtonElement.addEventListener('click', function () {
@@ -122,14 +128,14 @@ popupAddOpenButtonElement.addEventListener('click', function () {
   addFormValidation.resetForm();
 })
 
-api.getUserInfo()
-.then((res) => {
-  userInfo.setUserInfo({name: res.name, info: res.about, id: res._id});
-  userInfo.setUserAvatar(res.avatar);
+Promise.all([
+api.getUserInfo(),
+api.getInitialCards()])
+.then(([info, initialCards])=>{
+  userInfo.setUserInfo({name: info.name, info: info.about, id: info._id});
+  userInfo.setUserAvatar(info.avatar);
+  const cards = initialCards;
+  section.renderAllElements(cards.reverse());
 })
-.then((res) => api.getInitialCards(res))
-.then((res) => {
-  const cards = res;
-  cards.reverse().forEach((item) => renderer(item));
-})
-.catch((err) => console.log(err));;
+.catch((err)=>{console.log(err);});
+//спасибо
